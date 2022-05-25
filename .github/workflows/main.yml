@@ -40,6 +40,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    steps:
       - name: SonarCloud Scan
       - uses: SonarSource/sonarcloud-github-action@v1.6
       - name: SonarQube Quality Gate Check
