@@ -24,7 +24,7 @@ module.exports = {
     "react/react-in-jsx-scope": RULES.OFF,
     "react/jsx-filename-extension": [
       1,
-      { extensions: [".js", ".jsx", ".tsx"] },
+      { extensions: [".js", ".jsx", ".tsx", ".ts"] },
     ],
     "react/function-component-definition": [
       2,
