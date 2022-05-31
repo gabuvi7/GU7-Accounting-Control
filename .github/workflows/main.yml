@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: microsoft/variable-substitution@v1
         with:
-              files: 'sonar-project.properties.yaml'
+              files: 'sonar-project.properties'
         env: 
             sonar.projectKey: ${{ secrets.SONAR_PROJECTKEY }}
             sonar.organization: ${{ secrets.SONAR_ORGANIZATION }}
