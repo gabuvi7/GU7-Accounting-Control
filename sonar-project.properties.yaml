@@ -1,2 +1,2 @@
-sonar.projectKey={{SONAR_PROJECTKEY}}
-sonar.organization={{SONAR_ORGANIZATION}}
+sonar.projectKey=SONAR_PROJECTKEY
+sonar.organization=SONAR_ORGANIZATION
