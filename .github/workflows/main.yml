@@ -27,12 +27,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - uses: microsoft/variable-substitution@v1
-        with:
-              files: 'sonar-project.properties'
-        env: 
-            sonar.projectKey: ${{ secrets.SONAR_PROJECTKEY }}
-            sonar.organization: ${{ secrets.SONAR_ORGANIZATION }}
             
       # Runs a single command using the runners shell
       - name: Run a one-line script
