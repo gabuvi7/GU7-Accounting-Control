@@ -31,7 +31,7 @@ jobs:
         with:
               files: 'sonar-project.properties.yaml'
         env: 
-            sonar.projectkey: ${{ secrets.SONAR_PROJECTKEY }}
+            sonar.projectKey: ${{ secrets.SONAR_PROJECTKEY }}
             sonar.organization: ${{ secrets.SONAR_ORGANIZATION }}
             
       # Runs a single command using the runners shell
