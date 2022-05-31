@@ -7,6 +7,7 @@ on:
       - qa
   pull_request:
      types: [opened, synchronize, reopened]
+          
 jobs:
   sonarcloud:
     name: SonarCloud
