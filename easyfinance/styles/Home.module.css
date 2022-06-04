@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;1,700&display=swap');
+
 .container {
-  padding: 0 2rem;
+  background-color: #E0DFF0;
 }
 
 .main {
