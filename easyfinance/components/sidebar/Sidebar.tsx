@@ -1,74 +1,119 @@
 import { NextPage } from "next";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
+import Label from "components/Label";
+import useClickAwayListener from "hooks/useClickAwayListener";
+import { useResizeScreen } from "hooks/useResizeScreen";
+import ElementListSidebar from "./ElementListSidebar";
+import ContainerSidebar from "./ContainerSidebar";
+import NavigationSidebar from "./NavigationSidebar";
+import ListSidebar from "./ListSidebar";
+import BurgerSidebar from "./BurgerSidebar";
+
+type ElementListType = {
+  icon: string;
+  iconName: string;
+  description: string;
+};
 
 const Sidebar: NextPage = () => {
-  useEffect(() => {}, []);
+  const wrapperRef = useRef(null);
+  const [open, setOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const {
+    screen: { sWidth },
+  } = useResizeScreen();
 
-  const ContainerSidebar = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 25px 47px 0px;
-    gap: 43px;
-    position: relative;
-    width: 256px;
-    height: 100vh;
-    background: #ffffff;
-    border-radius: 0px 26px 26px 0px;
+  useClickAwayListener(wrapperRef, () => setOpen(false));
+
+  const elements: ElementListType[] = [
+    {
+      icon: "material-symbols-rounded",
+      iconName: "grid_view",
+      description: "Dashboard",
+    },
+    {
+      icon: "material-symbols-rounded",
+      iconName: "pie_chart",
+      description: "Reports",
+    },
+    {
+      icon: "material-symbols-rounded",
+      iconName: "paid",
+      description: "Transactions",
+    },
+    {
+      icon: "material-symbols-rounded",
+      iconName: "monitoring",
+      description: "Investments",
+    },
+    {
+      icon: "material-symbols-rounded",
+      iconName: "account_balance_wallet",
+      description: "Wallets",
+    },
+  ];
+
+  const Icon = styled.span`
+    color: #a1a0bd;
   `;
 
-  const NavigationSidebar = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 120px;
+  const handleOpen = (e: any) => {
+    e.preventDefault();
+    setOpen((prevState) => !prevState);
+  };
 
-    width: 206px;
-    height: 815px;
-  `;
+  const openContainer = (): boolean => {
+    let response: boolean = open;
+    if (mounted && sWidth > 768) response = true;
+    return response;
+  };
 
-  const ListSidebar = styled.ul`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 22px;
-    width: 206px;
-    height: 376px;
-    list-style: none;
-  `;
-
-  const ElementListSidebar = styled.li`
-    font-family: "Rubik", sans-serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 17px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-    color: #4c49ed;
-  `;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <ContainerSidebar>
-      <Image
-        src="/easyFinance-logo.svg"
-        alt="EasyFinance Logo"
-        width={250}
-        height={160}
-      />
-      <NavigationSidebar>
-        <ListSidebar>
-          <ElementListSidebar>Dashboard</ElementListSidebar>
-          <ElementListSidebar>Reports</ElementListSidebar>
-          <ElementListSidebar>Transactions</ElementListSidebar>
-          <ElementListSidebar>Investments</ElementListSidebar>
-          <ElementListSidebar>Wallets</ElementListSidebar>
-        </ListSidebar>
-      </NavigationSidebar>
-    </ContainerSidebar>
+    <>
+      {mounted && sWidth < 768 && (
+        <BurgerSidebar
+          aria-label="Toggle menu"
+          aria-expanded={open}
+          onClick={handleOpen}
+          open={open}
+        >
+          <span />
+          <span />
+          <span />
+        </BurgerSidebar>
+      )}
+      <ContainerSidebar
+        ref={wrapperRef}
+        open={openContainer()}
+        className="nav-container"
+        type="sidebar"
+      >
+        <div>
+          <Image
+            src="/easyFinance-logo.svg"
+            alt="EasyFinance Logo"
+            width={250}
+            height={160}
+          />
+        </div>
+        <NavigationSidebar className="menu-items">
+          <ListSidebar>
+            {elements.map((item) => (
+              <ElementListSidebar key={item.description}>
+                <Icon className={item.icon}>{item.iconName}</Icon>
+                <Label type="sidebar">{item.description}</Label>
+              </ElementListSidebar>
+            ))}
+          </ListSidebar>
+        </NavigationSidebar>
+      </ContainerSidebar>
+    </>
   );
 };
 

@@ -9,14 +9,12 @@ const Home: NextPage = () => (
     <Head>
       <title>EasyFinance</title>
       <meta name="description" content="EasyFinance" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/easyFinance-logo.svg" />
     </Head>
 
     <main>
       <Sidebar />
     </main>
-
-    <footer className={styles.footer}>a</footer>
   </div>
 );
 
