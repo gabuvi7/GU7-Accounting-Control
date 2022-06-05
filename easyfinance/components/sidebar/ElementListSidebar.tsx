@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
-const ElementListSidebar = styled.li`
+type ElementListProps = {
+  active: boolean;
+};
+
+const ElementListSidebar = styled("li")<ElementListProps>`
   line-height: 2em;
   display: flex;
   align-items: center;
@@ -9,6 +13,10 @@ const ElementListSidebar = styled.li`
   border-radius: 6px;
   cursor: pointer;
   justify-content: space-around;
+  background-color: ${(props) => props.active && "#e4e3ff"};
+  & > span {
+    color: ${(props) => props.active && "#4c49ed"};
+  }
   &:hover {
     background-color: #e4e3ff;
     & > span {

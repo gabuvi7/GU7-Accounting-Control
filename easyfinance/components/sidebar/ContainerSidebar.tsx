@@ -20,10 +20,14 @@ const setContainerSidebarStyles = () =>
     transition: all 0.3s linear;
     `;
 
-const ContainerSidebar = styled("div")<ContainerProps>`
+const ContainerSidebar = styled("nav")<ContainerProps>`
   ${(props) => props.type === "sidebar" && setContainerSidebarStyles()}
   ${(props) =>
-    props.open ? "transform: translateX(0%);" : "transform: translateX(-100%);"}
+    props.open
+      ? "transform: translateX(0%);"
+      : `transform: translateX(-100%);
+        flex: 0;
+        position: absolute;`}
 `;
 
 export default ContainerSidebar;
