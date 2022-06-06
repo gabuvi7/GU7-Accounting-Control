@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 
 const ListSidebar = styled.ul`
   display: flex;
@@ -11,4 +12,4 @@ const ListSidebar = styled.ul`
   list-style: none;
 `;
 
-export default ListSidebar;
+export default React.memo(ListSidebar);

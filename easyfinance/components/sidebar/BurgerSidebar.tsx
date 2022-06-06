@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 
 type BurgerSidebarProps = {
   primaryLight?: string;
@@ -50,4 +51,4 @@ const BurgerSidebar = styled("button")<BurgerSidebarProps>`
   }
 `;
 
-export default BurgerSidebar;
+export default React.memo(BurgerSidebar);

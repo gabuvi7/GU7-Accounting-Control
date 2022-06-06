@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 
 type ElementListProps = {
   active: boolean;
@@ -25,4 +26,4 @@ const ElementListSidebar = styled("li")<ElementListProps>`
   }
 `;
 
-export default ElementListSidebar;
+export default React.memo(ElementListSidebar);

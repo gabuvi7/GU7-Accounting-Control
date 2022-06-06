@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Label from "components/Label";
 import useClickAwayListener from "hooks/useClickAwayListener";
@@ -65,7 +65,7 @@ const Sidebar: NextPage = () => {
     },
   ];
 
-  const Icon = styled.span`
+  const Icon = styled("span")`
     color: #a1a0bd;
   `;
 
@@ -95,7 +95,7 @@ const Sidebar: NextPage = () => {
 
   return (
     <>
-      {mounted && sWidth < 768 && (
+      {mounted && sWidth <= 768 && (
         <div>
           <BurgerSidebar
             aria-label="Toggle menu"
@@ -112,8 +112,8 @@ const Sidebar: NextPage = () => {
       <ContainerSidebar
         ref={wrapperRef}
         open={openContainer()}
-        className="nav-container"
         type="sidebar"
+        screen={sWidth}
       >
         <ContainerLogo>
           <Link href="/">
@@ -146,4 +146,4 @@ const Sidebar: NextPage = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

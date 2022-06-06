@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 
 const NavigationSidebar = styled.div`
   display: flex;
@@ -10,4 +11,4 @@ const NavigationSidebar = styled.div`
   height: 815px;
 `;
 
-export default NavigationSidebar;
+export default React.memo(NavigationSidebar);
