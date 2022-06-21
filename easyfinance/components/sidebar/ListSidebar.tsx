@@ -7,7 +7,7 @@ const ListSidebar = styled.ul`
   align-items: center;
   padding: 0px;
   gap: 22px;
-  width: 206px;
+  width: 250px;
   height: 376px;
   list-style: none;
 `;

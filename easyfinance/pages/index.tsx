@@ -1,19 +1,16 @@
-import styled from "@emotion/styled";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import Card from "components/Card";
 import type { NextPage } from "next";
 
-const Home: NextPage = () => {
-  const HomeContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  `;
-
-  return (
-    <HomeContainer>
+const Home: NextPage = () => (
+  <SimpleGrid minChildWidth="405px" spacing="6" padding="10px">
+    <Box justifySelf="center" alignSelf="center">
       <Card />
-    </HomeContainer>
-  );
-};
+    </Box>
+    <Box justifySelf="center" alignSelf="center">
+      <Card />
+    </Box>
+  </SimpleGrid>
+);
 
 export default Home;

@@ -3,14 +3,17 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Label from "components/Label";
-import useClickAwayListener from "hooks/useClickAwayListener";
-import { useResizeScreen } from "hooks/useResizeScreen";
 import ElementListSidebar from "./ElementListSidebar";
-import ContainerSidebar from "./ContainerSidebar";
-import NavigationSidebar from "./NavigationSidebar";
 import ListSidebar from "./ListSidebar";
 import BurgerSidebar from "./BurgerSidebar";
 
@@ -22,15 +25,8 @@ type ElementListType = {
 };
 
 const Sidebar: NextPage = () => {
-  const wrapperRef = useRef(null);
-  const [open, setOpen] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const router = useRouter();
-  const {
-    screen: { sWidth },
-  } = useResizeScreen();
-
-  useClickAwayListener(wrapperRef, () => setOpen(false));
 
   const elements: ElementListType[] = [
     {
@@ -73,75 +69,55 @@ const Sidebar: NextPage = () => {
     cursor: pointer;
   `;
 
-  const handleOpen = (e: any) => {
-    e.preventDefault();
-    setOpen((prevState) => !prevState);
-  };
-
-  const openContainer = useCallback((): boolean => {
-    let response: boolean = open;
-    if (mounted && sWidth > 768) response = true;
-    return response;
-  }, [open, mounted, sWidth]);
-
   const handleClickItem = (href: string) => (e: any) => {
     e.preventDefault();
     router.push(href);
   };
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <>
-      {mounted && sWidth <= 768 && (
-        <div>
-          <BurgerSidebar
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={handleOpen}
-            open={open}
-          >
-            <span />
-            <span />
-            <span />
-          </BurgerSidebar>
-        </div>
-      )}
-      <ContainerSidebar
-        ref={wrapperRef}
-        open={openContainer()}
-        type="sidebar"
-        screen={sWidth}
+      <BurgerSidebar
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+        onClick={onToggle}
+        open={isOpen}
       >
-        <ContainerLogo>
-          <Link href="/">
-            <a>
-              <Image
-                src="/easyFinance-logo.svg"
-                alt="EasyFinance Logo"
-                width={250}
-                height={160}
-              />
-            </a>
-          </Link>
-        </ContainerLogo>
-        <NavigationSidebar className="menu-items">
-          <ListSidebar>
-            {elements.map((item) => (
-              <ElementListSidebar
-                key={item.description}
-                active={router.asPath === item.href}
-                onClick={handleClickItem(item.href)}
-              >
-                <Icon className={item.icon}>{item.iconName}</Icon>
-                <Label type="sidebar">{item.description}</Label>
-              </ElementListSidebar>
-            ))}
-          </ListSidebar>
-        </NavigationSidebar>
-      </ContainerSidebar>
+        <span />
+        <span />
+        <span />
+      </BurgerSidebar>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px">
+            <ContainerLogo>
+              <Link href="/">
+                <a>
+                  <Image
+                    src="/easyFinance-logo.svg"
+                    alt="EasyFinance Logo"
+                    width={250}
+                    height={160}
+                  />
+                </a>
+              </Link>
+            </ContainerLogo>
+          </DrawerHeader>
+          <DrawerBody>
+            <ListSidebar>
+              {elements.map((item) => (
+                <ElementListSidebar
+                  key={item.description}
+                  active={router.asPath === item.href}
+                  onClick={handleClickItem(item.href)}
+                >
+                  <Icon className={item.icon}>{item.iconName}</Icon>
+                  <Label type="sidebar">{item.description}</Label>
+                </ElementListSidebar>
+              ))}
+            </ListSidebar>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };

@@ -19,9 +19,9 @@ const BurgerSidebar = styled("button")<BurgerSidebarProps>`
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
+  z-index: 10000;
   transform: ${(props) =>
-    !props.open ? "translateX(-10rem)" : "translateX(0)"};
+    !props.open ? "translateX(-10rem)" : "translateX(90px)"};
   transition: all 0.3s linear;
 
   &:focus {
@@ -37,7 +37,7 @@ const BurgerSidebar = styled("button")<BurgerSidebarProps>`
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;
-    transform: ${(props) => (!props.open ? "translateX(0)" : "translateX(0)")};
+    transform: ${(props) => (!props.open ? "translateX(0)" : "translateX(90px)")};
     :first-of-type {
       transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
     }

@@ -1,19 +1,9 @@
+import { Box, Heading } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Grid from "./Grid";
 import Label from "./Label";
 
 const Card = () => {
-  const CardStyled = styled.div`
-    max-width: 547.46px;
-    min-width: 280px;
-    width: 100%;
-    height: 267.39px;
-
-    background: #ffffff;
-    box-shadow: 8px 13px 44px -6px #dfdbf7;
-    border-radius: 20px;
-  `;
-
   const ContainerCard = styled.div`
     display: grid;
     height: 100%;
@@ -41,10 +31,18 @@ const Card = () => {
   `;
 
   return (
-    <CardStyled>
+    <Box
+      maxW="550px"
+      minW="fit-content"
+      bg="white"
+      borderRadius="20px"
+      overflow="hidden"
+    >
       <ContainerCard>
         <Grid pos="relative" top="-5%" alignY="center">
-          <Label type="titleTextCard">Total Ballance</Label>
+          <Heading as="h3" size="lg">
+            Total Ballance
+          </Heading>
         </Grid>
         <CircleCard>
           <ContentCircleCard>
@@ -55,7 +53,7 @@ const Card = () => {
           </ContentCircleCard>
         </CircleCard>
       </ContainerCard>
-    </CardStyled>
+    </Box>
   );
 };
 
